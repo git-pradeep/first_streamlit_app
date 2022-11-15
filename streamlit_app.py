@@ -35,12 +35,13 @@ if streamlit.button('Get Fruit load List'):
   my_data_rows = get_fruit_load_list()
   streamlit.dataframe(my_data_rows)
   
+streamlit.stop()  
 fruit_choice = streamlit.text_input('What fruit would you like to add?',fruit_choice)
 streamlit.write('Thanks for adding ', fruit_choice)
 
 my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
-streamlit.stop()
+
 streamlit.title('My Parents New Healthy Diner')
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣 Omega 3 & Blueberry Oatmeal')
