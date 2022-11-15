@@ -4,8 +4,6 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-
-
 #create the repeatable code block (called a function)
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
@@ -15,20 +13,20 @@ def get_fruityvice_data(this_fruit_choice):
 streamlit.header('Fruityvice Fruit Advice')
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
-  if not fruit_choice:
-    streamlit.error("Please select a fruit to get information.")
-  else:
-    back_from_function = get_fruityvice_data(fruit_choice)    
-    streamlit.dataframe(back_from_function)
+    if not fruit_choice:
+      streamlit.error("Please select a fruit to get information.")
+    else:
+      back_from_function = get_fruityvice_data(fruit_choice)    
+      streamlit.dataframe(back_from_function)
 except URLError as e:
-  streamlit.error()
+      streamlit.error()
 
 def insert_row_snowflake(new_fruit):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into fruit_load_list_values ('from streamlit')")    
     return "Thanks for adding " + new_fruit
   
-add_my_fruit = streamlit.text_input('What fruit would you like to add?') 
+    add_my_fruit = streamlit.text_input('What fruit would you like to add?') 
 
 if streamlit.button('Add a Fruit to the List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
